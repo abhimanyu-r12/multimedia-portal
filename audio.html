@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">M</div>
+        <span>MediaSphere</span>
+      </a>
+
+      <button class="mobile-toggle" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="images.html" class="nav-link">Images</a></li>
+        <li><a href="audio.html" class="nav-link active">Audio</a></li>
+        <li><a href="video.html" class="nav-link">Video</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <section class="page-hero">
+        <h1 class="page-title"><span class="gradient-text">Audio</span></h1>
+      </section>
+
+      <!-- 2-Column Audio Layout -->
+      <section class="audio-stage-grid">
+
+        <!-- Column 1: Audio Player -->
+        <div class="featured-player-card">
+          <div class="player-artwork-box">
+            <div class="disk-graphic">
+              <div class="disk-center"></div>
+            </div>
+          </div>
+
+          <!-- Equalizer Simulation -->
+          <div class="equalizer-bars">
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+          </div>
+
+          <!-- Track Info -->
+          <div class="track-info-header">
+            <h3 class="featured-track-title">Audio Track 1</h3>
+            <p class="featured-track-artist">Artist 1</p>
+          </div>
+
+          <!-- Timeline -->
+          <div class="progress-container">
+            <input type="range" class="timeline-slider" min="0" max="100" value="25" aria-label="Audio scrubber">
+            <div class="time-row">
+              <span class="current-time">0:45</span>
+              <span class="total-time">03:00</span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="player-controls-row">
+            <button class="ctrl-btn" type="button">🔀</button>
+            <button class="ctrl-btn" type="button">⏮</button>
+            <button class="ctrl-btn play-pause-btn" id="mainAudioPlayPause" type="button">▶</button>
+            <button class="ctrl-btn" type="button">⏭</button>
+            <button class="ctrl-btn" type="button">🔁</button>
+          </div>
+
+          <!-- Volume -->
+          <div class="volume-row">
+            <span>🔈</span>
+            <input type="range" class="volume-slider" min="0" max="100" value="75" aria-label="Volume">
+            <span>🔊</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Playlist & Native Audio -->
+        <div class="playlist-column">
+          <div class="playlist-header">
+            <h3>Playlist</h3>
+          </div>
+
+          <div class="playlist-list">
+            <div class="track-card active-track">
+              <div class="track-card-thumb">🎵</div>
+              <div class="track-card-meta">
+                <div class="track-card-title">Audio Track 1</div>
+                <div class="track-card-artist">Artist 1</div>
+              </div>
+              <span class="track-duration" style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted);">03:00</span>
+            </div>
+
+            <div class="track-card">
+              <div class="track-card-thumb">🎵</div>
+              <div class="track-card-meta">
+                <div class="track-card-title">Audio Track 2</div>
+                <div class="track-card-artist">Artist 2</div>
+              </div>
+              <span class="track-duration" style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted);">04:15</span>
+            </div>
+
+            <div class="track-card">
+              <div class="track-card-thumb">🎵</div>
+              <div class="track-card-meta">
+                <div class="track-card-title">Audio Track 3</div>
+                <div class="track-card-artist">Artist 3</div>
+              </div>
+              <span class="track-duration" style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted);">02:40</span>
+            </div>
+          </div>
+
+          <!-- Native Audio Tag -->
+          <div class="native-audio-wrapper">
+            <h4>HTML5 Audio Player</h4>
+            <audio controls preload="metadata">
+              <source src="#" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <strong>MediaSphere</strong>
+      </div>
+      <ul class="footer-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="images.html">Images</a></li>
+        <li><a href="audio.html">Audio</a></li>
+        <li><a href="video.html">Video</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
