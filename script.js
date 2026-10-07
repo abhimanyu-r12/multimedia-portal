@@ -50,16 +50,38 @@ function initMobileNavigation() {
 
   if (!toggleBtn || !navLinks) return;
 
-  toggleBtn.addEventListener('click', () => {
+  const closeMenu = () => {
+    navLinks.classList.remove('open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.innerHTML = '☰';
+  };
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = navLinks.classList.toggle('open');
-    toggleBtn.setAttribute('aria-expanded', isOpen);
+    toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     toggleBtn.innerHTML = isOpen ? '✕' : '☰';
+  });
+
+  navLinks.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
   });
 
   document.addEventListener('click', (e) => {
     if (!toggleBtn.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('open');
-      toggleBtn.innerHTML = '☰';
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+      closeMenu();
     }
   });
 }
@@ -110,32 +132,35 @@ function initImageGallery() {
     });
   });
 
-  // Open Lightbox
-  document.querySelectorAll('.open-lightbox-btn').forEach((btn, index) => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.gallery-card');
-      const title = card ? card.querySelector('.card-title')?.textContent : 'Image';
-      const imgData = MEDIA_CONFIG.images[index];
+  // Open Lightbox (supports button tap and full-card mobile tap)
+  const openLightbox = (card, index) => {
+    const title = card ? card.querySelector('.card-title')?.textContent : 'Image';
+    const imgData = MEDIA_CONFIG.images[index];
 
-      if (modalTitle) modalTitle.textContent = title;
+    if (modalTitle) modalTitle.textContent = title;
 
-      const modalContainer = modal.querySelector('div[style*="min-height"]');
-      if (modalContainer) {
-        if (imgData && imgData.src) {
-          modalContainer.innerHTML = `<img src="${imgData.src}" alt="${title}" style="max-width:100%; max-height:480px; object-fit:contain; border-radius:8px;">`;
-        } else {
-          modalContainer.innerHTML = `
-            <svg class="icon-placeholder" style="width: 64px; height: 64px;" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span style="margin-top: 0.5rem; color: var(--text-muted);">Preview Placeholder</span>
-          `;
-        }
+    const modalContainer = modal.querySelector('.lightbox-preview-area') || modal.querySelector('div[style*="min-height"]');
+    if (modalContainer) {
+      if (imgData && imgData.src) {
+        modalContainer.innerHTML = `<img src="${imgData.src}" alt="${title}" class="lightbox-img">`;
+      } else {
+        modalContainer.innerHTML = `
+          <svg class="icon-placeholder" style="width: 64px; height: 64px;" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span style="margin-top: 0.5rem; color: var(--text-muted);">Preview Placeholder</span>
+        `;
       }
+    }
 
-      modal.classList.add('active');
+    modal.classList.add('active');
+  };
+
+  cards.forEach((card, index) => {
+    card.addEventListener('click', (e) => {
+      openLightbox(card, index);
     });
   });
 
